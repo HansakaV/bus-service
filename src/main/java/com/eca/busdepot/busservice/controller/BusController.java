@@ -3,7 +3,6 @@ package com.eca.busdepot.busservice.controller;
 import com.eca.busdepot.busservice.model.Bus;
 import com.eca.busdepot.busservice.repository.BusRepository;
 import com.eca.busdepot.busservice.service.StorageService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,11 +11,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/buses")
-@RequiredArgsConstructor
 public class BusController {
 
     private final BusRepository busRepository;
     private final StorageService storageService;
+
+    // ✅ Constructor injection for Java 21 compliance
+    public BusController(BusRepository busRepository, StorageService storageService) {
+        this.busRepository = busRepository;
+        this.storageService = storageService;
+    }
 
     @GetMapping
     public List<Bus> getAllBuses() {
